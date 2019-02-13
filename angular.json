@@ -23,7 +23,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/css/jquery.switchButton.css",
+              "src/assets/css/perfect-scrollbar.css",
+              "src/assets/css/select2.min.css",
+              "src/assets/css/bracket.css"
+
             ],
             "scripts": []
           },
