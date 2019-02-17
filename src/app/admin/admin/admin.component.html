@@ -1,0 +1,99 @@
+<div class="br-logo"><a href=""><span>[</span>Пунцоглин  <i>хийд</i><span>]</span></a></div>
+    <div class="br-sideleft overflow-y-auto">
+      <label class="sidebar-label pd-x-10 mg-t-20 op-3">Цэс</label>
+      <ul class="br-sideleft-menu">
+        <li class="br-menu-item">
+          <a routerLink="/admin/home" class="br-menu-link"  routerLinkActive="active">
+            <i class="fas fa-home "></i>
+            <span class="menu-item-label">Эхлэл</span>
+          </a><!-- br-menu-link -->
+        </li><!-- br-menu-item -->
+        <li class="br-menu-item">
+          <a routerLink="/admin/books" class="br-menu-link"  routerLinkActive="active">
+            <i class="fas fa-book "></i>
+            <span class="menu-item-label">Ном засалууд</span>
+          </a><!-- br-menu-link -->
+        </li><!-- br-menu-item -->
+        <li class="br-menu-item">
+          <a routerLink="/admin/years" class="br-menu-link"  routerLinkActive="active">
+            <i class="fas fa-briefcase "></i>
+            <span class="menu-item-label">Жилийн засал</span>
+          </a><!-- br-menu-link -->
+        </li><!-- br-menu-item -->
+
+        <li class="br-menu-item">
+          <a routerLink="/admin/report" class="br-menu-link"  routerLinkActive="active">
+            <i class="fas fa-chart-pie "></i>
+            <span class="menu-item-label">Тайлан</span>
+          </a><!-- br-menu-link -->
+        </li><!-- br-menu-item -->
+        <li class="br-menu-item">
+          <a routerLink="/admin/users" class="br-menu-link"  routerLinkActive="active">
+            <i class="fas fa-user "></i>
+            <span class="menu-item-label">Хэрэглэгч</span>
+          </a><!-- br-menu-link -->
+        </li><!-- br-menu-item -->
+      </ul><!-- br-sideleft-menu -->
+
+      <label class="sidebar-label pd-x-10 mg-t-25 mg-b-20 tx-info">Өнөөдрийн товч тайлан</label>
+
+      <div class="info-list">
+        <div class="info-list-item">
+          <div>
+            <p class="info-list-label">Нийт бичилт</p>
+            <h5 class="info-list-amount">32.3%</h5>
+          </div>
+          
+        </div><!-- info-list-item -->
+
+        <div class="info-list-item">
+          <div>
+            <p class="info-list-label">Нийт орлого</p>
+            <h5 class="info-list-amount">140.05</h5>
+          </div>
+        
+        </div><!-- info-list-item -->
+
+        <div class="info-list-item">
+          <div>
+            <p class="info-list-label">Нийт буцаасан</p>
+            <h5 class="info-list-amount">82.02%</h5>
+          </div>
+        </div><!-- info-list-item -->
+
+      </div><!-- info-list -->
+
+      <br>
+    </div><!-- br-sideleft -->
+    <!-- ########## END: LEFT PANEL ########## -->
+
+    <!-- ########## START: HEAD PANEL ########## -->
+    <div class="br-header">
+        <div class="br-header-left">
+          
+            <div class="navicon-left hidden-md-down"><a id="btnLeftMenu" href=""><i class="fas fa-bars"></i></a></div>
+            <div class="navicon-left hidden-lg-up"><a id="btnLeftMenuMobile" href=""><i class="fas fa-bars"></i></a></div>
+            
+          </div>
+      <div class="br-header-right">
+        <nav class="nav">
+          <div class="dropdown">
+            <a (click)="logout()" class="nav-link nav-link-profile" >
+              <span class="logged-name hidden-md-down">Хэрэглэгчийн нэр : {{ currentUser?.username }}</span>
+              <span class="square-10 bg-success"></span>
+            </a>
+          </div><!-- dropdown -->
+        </nav>
+        
+      </div><!-- br-header-right -->
+    </div><!-- br-header -->
+    <!-- ########## END: HEAD PANEL ########## -->
+
+    <!-- ########## START: RIGHT PANEL ########## -->
+  
+
+<router-outlet>
+
+</router-outlet>
+
+

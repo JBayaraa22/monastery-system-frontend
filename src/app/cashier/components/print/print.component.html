@@ -1,0 +1,312 @@
+<div class="br-pagetitle">
+  <i class="fas fa-print tx-48 "></i>
+  <div>
+    <h4>Баримт хэвлэх</h4>
+    <p class="mg-b-0">Ном заслуудаас нэмэн баримт хэвлэх боломжтой.</p>
+  </div>
+</div>
+
+<div class="br-pagebody">
+  <div class="br-section-wrapper">
+    <div class="row row-sm mg-t-20">
+      <div class="col-lg-6">
+
+        <div id="accordion2" class="accordion accordion-head-colored accordion-inverse" role="tablist"
+          aria-multiselectable="true">
+          <div class="card">
+            <div class="card-header" role="tab" id="headingThree0">
+              <h6 class="mg-b-0">
+                <a class="transition collapsed" data-toggle="collapse" data-parent="#accordion0" href="#collapseThree0"
+                  aria-expanded="false" aria-controls="collapseThree0">
+                  <span class="fa-stack fa-2x">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-user-tie fa-stack-1x fa-inverse"></i>
+                  </span> <b class="tx-16">Үйлчлүүлэгчийн мэдээлэл</b>
+                </a>
+              </h6>
+            </div>
+            <div id="collapseThree0" class="collapse" role="tabpanel" aria-labelledby="headingThree0" style="">
+              <div class="card-block pd-20">
+
+
+
+                <div class="form-layout form-layout-2">
+                  <div class="row no-gutters">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-control-label">Хэнээс: <span class="tx-danger">*</span></label>
+                        <input class="form-control" [(ngModel)]="receipt.from" type="text" name="firstname"
+                          placeholder="Хэнээс">
+                      </div>
+                    </div><!-- col-4 -->
+                    <div class="col-md-6 mg-t--1 mg-md-t-0">
+                      <div class="form-group mg-md-l--1">
+                        <label class="form-control-label">Хэнд : <span class="tx-danger">*</span></label>
+                        <input class="form-control" [(ngModel)]="receipt.toWhom" type="text" name="lastname"
+                          placeholder="Хэнд">
+                      </div>
+                    </div><!-- col-4 -->
+
+
+                  </div><!-- row -->
+                  <div class="alert alert-warning" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="d-flex align-items-center justify-content-start">
+                      <i class="icon ion-ios-checkmark alert-icon tx-32 mg-t-5 mg-xs-t-0"></i>
+                      <span><strong>Анхаар!</strong> Талбар дээр бичихэд шууд баримт руу нэмэгдэнэ.</span>
+                    </div><!-- d-flex -->
+                  </div><!-- alert -->
+                </div>
+
+
+
+
+              </div>
+            </div><!-- collapse -->
+          </div><!-- card -->
+
+          <div class="card">
+            <div class="card-header" role="tab" id="headingOne2">
+              <h6 class="mg-b-0">
+                <a data-toggle="collapse" data-parent="#accordion2" href="#collapseOne2" aria-expanded="false"
+                  aria-controls="collapseOne2" class="collapsed">
+                  <span class="fa-stack fa-2x">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-book fa-stack-1x fa-inverse"></i>
+                  </span> <b class="tx-16">Ном засал нэмэх</b>
+                </a>
+              </h6>
+            </div><!-- card-header -->
+
+            <div id="collapseOne2" class="collapse" role="tabpanel" aria-labelledby="headingOne2" style="">
+              <div class="card-block pd-20">
+
+                <div class="form-layout form-layout-2">
+                  <div class="row no-gutters">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="form-control-label">Номын нэр: <span class="tx-danger">*</span></label>
+                        <input class="form-control" type="text" name="searchName" (input)="searchBookByName($event.target.value , 1)"
+                          placeholder="Ном болон заслын нэрийг хайх...">
+                      </div>
+                    </div><!-- col-4 -->
+
+                  </div>
+
+                  <div class="row" *ngIf="searchResult?.length > 0"> 
+                      <div class="col-lg-12 mg-t-20 mg-lg-t-0">
+                        <div class="list-group list-group-striped">
+                          <div *ngFor="let book of searchResult;" class="list-group-item pd-y-15 pd-x-20 d-xs-flex align-items-center justify-content-start">
+                            <div class="mg-xs-l-15 mg-t-10 mg-xs-t-0 mg-r-auto">
+                              <p class="mg-b-0 tx-inverse tx-medium">{{ book?.name }}</p>
+                              <span class="d-block tx-13">{{ book?.price }}</span>
+                            </div>
+                            <div class="d-flex align-items-center mg-t-10 mg-xs-t-0">
+                              <a href="javascript:void(0)" (click)="addToReceipt(book)" class="btn btn-primary rounded-circle btn-icon">
+                                <div class="tx-20"><i class="fas fa-folder-plus"></i></div>
+                              </a>
+                            </div>
+                          </div><!-- list-group-item -->
+                        </div><!-- list-group -->
+                      </div><!-- col-6 -->
+                    </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header" role="tab" id="headingThree4">
+              <h6 class="mg-b-0">
+                <a class="transition collapsed" data-toggle="collapse" data-parent="#accordion4" href="#collapseThree4"
+                  aria-expanded="false" aria-controls="collapseThree4">
+                  <span class="fa-stack fa-2x">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-money-bill fa-stack-1x fa-inverse"></i>
+                  </span> <b class="tx-16">Сүсгээр</b>
+                </a>
+              </h6>
+            </div>
+            <div id="collapseThree4" class="collapse" role="tabpanel" aria-labelledby="headingThree4" style="">
+              <div class="card-block pd-20">
+
+
+                <div class="form-layout form-layout-2">
+                  <div class="row no-gutters">
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <label class="form-control-label">Хурал даган баясах: <span class="tx-danger">*</span></label>
+                        <input class="form-control" [(ngModel)]="follow.name" type="text" placeholder="Хурал даган баясах" disabled>
+                      </div>
+                    </div><!-- col-4 -->
+                    <div class="col-md-4 mg-t--1 mg-md-t-0">
+                      <div class="form-group mg-md-l--1">
+                        <label class="form-control-label">Хурал даган баясах мөнгөн дүн: <span
+                            class="tx-danger">*</span></label>
+                        <input class="form-control" [(ngModel)]="follow.price" type="number" value="McDoe" placeholder="" (input)="checkAmount($event.target.value , 1)">
+                      </div>
+                    </div><!-- col-4 -->
+
+                    <div class="col-md-4">
+                      <div class="form-group bd-t-0-force">
+                        <label class="form-control-label">Маанийн ерөөл: <span class="tx-danger">*</span></label>
+                        <input class="form-control" type="text" [(ngModel)]="yrool.name" placeholder="Маанийн ерөөл" disabled>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group mg-md-l--1 bd-t-0-force">
+                        <label class="form-control-label mg-b-0-force">Төрөл : <span class="tx-danger">*</span></label>
+                        <select class="form-control select2" data-placeholder="Төрөл сонгох..." [(ngModel)]="yroolType">
+                          <option value="Ажил үйлс бүтээх">Ажил үйлс бүтээх</option>
+                          <option value="Ажил үйлс бүтээх">Ажил үйлс бүтээх</option>
+                          <option value="Ажил үйлс бүтээх">Ажил үйлс бүтээх</option>
+
+                        </select>
+                      </div>
+                    </div><!-- col-4 -->
+                    <div class="col-md-4">
+                      <div class="form-group bd-t-0-force">
+                        <label class="form-control-label">Мөнгөн дүн: <span class="tx-danger">*</span></label>
+                        <input class="form-control" [(ngModel)]="yrool.price" type="number" (input)="checkAmount($event.target.value , 2)" placeholder="">
+                      </div>
+                    </div>
+                  </div><!-- row -->
+
+                </div>
+
+
+              </div>
+            </div><!-- collapse -->
+          </div><!-- card -->
+
+          <div class="card">
+            <div class="card-header" role="tab" id="headingTwo2">
+              <h6 class="mg-b-0">
+                <a class="transition collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo2"
+                  aria-expanded="false" aria-controls="collapseTwo2">
+                  <span class="fa-stack fa-2x">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-briefcase fa-stack-1x fa-inverse"></i>
+                  </span> <b class="tx-16">Тусгай засал</b>
+                </a>
+              </h6>
+            </div>
+            <div id="collapseTwo2" class="collapse" role="tabpanel" aria-labelledby="headingTwo2" style="">
+              <div class="card-block pd-20">
+                  <div class="form-layout form-layout-2">
+                      <div class="row no-gutters">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label class="form-control-label">Тусгай заслын нэр: <span class="tx-danger">*</span></label>
+                            <input class="form-control" type="text" name="searchName" (input)="searchBookByName($event.target.value , 2)"
+                              placeholder="Заслын нэрийг хайх...">
+                          </div>
+                        </div><!-- col-4 -->
+    
+                      </div>
+                      
+                  <div class="row" *ngIf="searchResult?.length > 0"> 
+                      <div class="col-lg-12 mg-t-20 mg-lg-t-0">
+                        <div class="list-group list-group-striped">
+                          <div *ngFor="let book of searchResult;" class="list-group-item pd-y-15 pd-x-20 d-xs-flex align-items-center justify-content-start">
+                            <div class="mg-xs-l-15 mg-t-10 mg-xs-t-0 mg-r-auto">
+                              <p class="mg-b-0 tx-inverse tx-medium">{{ book?.name }}</p>
+                              <span class="d-block tx-13">{{ book?.price }}</span>
+                            </div>
+                            <div class="d-flex align-items-center mg-t-10 mg-xs-t-0">
+                              <a href="javascript:void(0)" (click)="addToReceipt(book)" class="btn btn-primary rounded-circle btn-icon">
+                                <div class="tx-20"><i class="fas fa-folder-plus"></i></div>
+                              </a>
+                            </div>
+                          </div><!-- list-group-item -->
+                        </div><!-- list-group -->
+                      </div><!-- col-6 -->
+                    </div>
+                    </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" role="tab" id="headingThree2">
+              <h6 class="mg-b-0">
+                <a class="transition collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree2"
+                  aria-expanded="false" aria-controls="collapseThree2">
+                  <span class="fa-stack fa-2x">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-piggy-bank fa-stack-1x fa-inverse"></i>
+                  </span> <b class="tx-16">Жилийн засал нэмэх</b>
+                </a>
+              </h6>
+            </div>
+            <div id="collapseThree2" class="collapse" role="tabpanel" aria-labelledby="headingThree2" style="">
+              <div class="card-block pd-20">
+                
+              </div>
+            </div><!-- collapse -->
+          </div><!-- card -->
+
+
+        </div>
+      </div>
+
+      <div class="col-lg-6" id="receipt">
+        <h4 class="tx-inverse tx-uppercase tx-center tx-bold tx-20 mg-t-5 mg-b-5">Пунцоглин хийд</h4>
+        <p class="br-section-text mg-t-5 mg-b-5">Хэнээс : {{ receipt.from }} </p>
+        <p class="br-section-text mg-t-5 mg-b-5">Хэнд : {{ receipt.toWhom }} </p>
+        <table class="table tx-16">
+          <thead>
+            <tr>
+              <th> Д/д </th>
+              <th> Нэр </th>
+              <th> Үнэ </th>
+              <th> </th>
+            </tr>
+          </thead>
+          <tbody *ngIf="receipt?.books.length > 0">
+            <tr *ngFor="let book of receipt?.books; let i = index">
+              <td class="pd-t-1"> {{ i + 1 }} .</td>
+              <td class="pd-t-1"> {{ book?.name }}</td>
+              <td class="pd-t-1"> {{ book?.price }} ₮</td>
+              <td class="pd-t-1"> 
+                <a href="javascript:void(0);" (click)="removeFromReceipt(book)" class="btn btn-danger btn-icon rounded-circle mg-r-5 mg-b-10">
+                  <div><i class="fas fa-trash"></i></div>
+                </a>
+              </td>
+            </tr>
+            
+
+          </tbody>
+          <tfoot>
+              <tr>
+                  <td class="pd-t-1" colspan="2">Нийт : </td>
+                  <td class="pd-t-1 tx-bold" colspan="2">{{totalPrice}} ₮</td>
+              </tr>
+            <tr class="tx-center">
+              <td colspan="4"><b class="tx-inverse tx-light  ">Хэвлэсэн бичээч : {{ currentUser.username }} </b></td>
+            </tr>
+            <tr class="tx-center">
+              <td colspan="4"><b class="tx-inverse tx-light ">Хэвлэсэн огноо : <span
+                    class="tx-bold">{{receipt.printedDate | date:'yyyy-MM-dd H:m:s'}} </span></b></td>
+            </tr>
+            <tr class="tx-center">
+              <td colspan="4"><b class="tx-inverse tx-uppercase tx-center tx-bold">Сайн үйлс бүхэн дэлгэрэх болтугай</b>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+ <a href="javascript:void(0)" class="btn btn-primary btn-icon rounded-circle pd-y-15 pd-x-15" id="floating-icon-button" (click)="print()">
+    <div><i class="fas fa-print fa-2x"></i></div>
+  </a>

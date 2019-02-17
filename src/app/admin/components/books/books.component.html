@@ -1,0 +1,247 @@
+<!-- ########## START: MAIN PANEL ########## -->
+<div class="br-mainpanel" style="position: relative;">
+  <div class="br-pagetitle">
+    <i class="fas fa-book tx-48 "></i>
+    <div>
+      <h4>Ном засалууд</h4>
+      <p class="mg-b-0">Ном засал , тусгай засал нэмэх , засах , устгах боломжтой</p>
+
+      
+    </div>
+    
+  </div>
+
+  <div class="br-pagebody">
+      
+
+    <div class="br-section-wrapper">
+        
+        <a href="" class="btn btn-primary btn-with-icon btn-block mg-t-10" style="width: 200px;" data-toggle="modal" data-target="#modaldemo6">
+            <div class="ht-40">
+              <span class="icon wd-40"><i class="fa fa-plus"></i></span>
+              <span class="pd-x-15">Ном , засал нэмэх</span>
+            </div>
+          </a>
+
+        <div id="accordion7" class="accordion accordion-head-colored accordion-inverse mg-t-20" role="tablist" aria-multiselectable="true">
+            <div class="card">
+              <div class="card-header" role="tab" id="headingOne7">
+                <h6 class="mg-b-0">
+                  <a data-toggle="collapse" data-parent="#accordion7" href="#collapseOne7" aria-expanded="false" aria-controls="collapseOne7" class="collapsed">
+                    Ном болон засалууд
+                  </a>
+                </h6>
+              </div><!-- card-header -->
+
+              <div id="collapseOne7" class="collapse" role="tabpanel" aria-labelledby="headingOne7" style="">
+                <div class="card-block pd-20">
+                  
+      <div class="table-wrapper">
+          <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Д/д</th>
+                  <th>Нэр</th>
+                  <th>Бэлдэх зүйлс</th>
+                  <th>Үнэ</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody *ngIf="books?.length > 0; else emptyTable">
+                <tr *ngFor="let book of books; let i = index" class="tx-16">
+                  <td >{{ i + 1 }}</td>
+                  <td>{{ book?.name }}</td>
+                  <td>{{ book?.description }}</td>
+                  <td>{{ book?.price }}</td>
+                  <td>
+                      <a href="javasrcipt:void(0)" (click)="deleteBook(book)" class="btn btn-danger btn-icon">
+                          <div><i class="fas fa-trash-alt"></i></div>
+                      </a>
+                      <a href="javasrcipt:void(0)" class="btn btn-info btn-icon mg-l-5" data-toggle="modal" data-target="#editBook" (click)="selectedBook = book">
+                          <div><i class="fas fa-edit"></i></div>
+                      </a>
+                  </td>
+                    
+                </tr>
+              </tbody>
+            </table>
+      </div><!-- table-wrapper -->
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" role="tab" id="headingTwo7">
+                <h6 class="mg-b-0">
+                  <a class="collapsed transition" data-toggle="collapse" data-parent="#accordion7" href="#collapseTwo7" aria-expanded="false" aria-controls="collapseTwo7">
+                    Тусгай засалууд
+                  </a>
+                </h6>
+              </div>
+              <div id="collapseTwo7" class="collapse" role="tabpanel" aria-labelledby="headingTwo7">
+                <div class="card-block pd-20">
+                  
+      <div class="table-wrapper">
+          <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Д/д</th>
+                  <th>Нэр</th>
+                  <th>Бэлдэх зүйлс</th>
+                  <th>Үнэ</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody *ngIf="special?.length > 0; else emptyTable">
+                <tr *ngFor="let book of special; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ book?.name }}</td>
+                  <td>{{ book?.description }}</td>
+                  <td>{{ book?.price }}</td>
+                  
+                  <td>
+                      <a href="javasrcipt:void(0)" (click)="deleteBook(book)" class="btn btn-danger btn-icon">
+                          <div><i class="fas fa-trash-alt"></i></div>
+                      </a>
+                      <a href="javasrcipt:void(0)" class="btn btn-info btn-icon mg-l-5" data-toggle="modal" data-target="#editBook" (click)="selectedBook = book">
+                          <div><i class="fas fa-edit"></i></div>
+                      </a>
+                  </td>
+                </tr>
+              </tbody>
+
+              <ng-template #emptyTable>
+                <tfoot>
+                  <tr>
+                    <td colspan="5"> 
+                    
+                        <div class="alert alert-solid alert-danger" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                            <strong class="d-block d-sm-inline-block-force">Хоосон байна!</strong> Одоогоор ном засал байхгүй байна.
+                          </div>
+                      
+                    </td>
+                  </tr>
+                </tfoot>
+              </ng-template>
+            </table>
+      </div><!-- table-wrapper -->
+                </div>
+              </div>
+            </div>
+           
+          </div>
+
+
+
+
+<script>
+$('#datatable1').DataTable({
+  responsive: true,
+  language: {
+    searchPlaceholder: 'Search...',
+    sSearch: '',
+    lengthMenu: '_MENU_ items/page',
+  }
+});</script>
+
+    </div>
+
+
+
+
+
+
+
+  </div><!-- br-mainpanel -->
+
+
+
+
+      <div id="modaldemo6" class="modal fade show effect-sign" >
+          <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content bd-0 tx-14">
+              <div class="modal-header pd-x-20">
+                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Пунцоглин хийд</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body pd-20">
+                <form [formGroup]="addBookForm">
+                  <h3 class="tx-inverse  mg-b-5">Ном нэмэх</h3>
+                  <p>Нэр , үнэ талбаруудыг заавал бөглөнө.</p>
+                  <br>
+                  <div class="form-group">
+                    <input type="text" name="email" formControlName="name" class="form-control pd-y-12" placeholder="Нэр">
+                  </div><!-- form-group -->
+                  <div class="form-group mg-b-20">
+                      <textarea rows="3" class="form-control" formControlName="description" placeholder="Бэлдэх зүйлс"></textarea>
+                  </div><!-- form-group -->
+                  <div class="form-group mg-b-20">
+                      <input type="number" name="text" formControlName="price" class="form-control pd-y-12" placeholder="Үнэ">
+                  </div><!-- form-group -->
+                  <div class="form-group mg-b-20">
+                      <label class="rdiobox">
+                          <input name="type" type="radio" formControlName="type" value="1">
+                          <span>Ном , засал</span>
+                      </label>
+                      <label class="rdiobox">
+                          <input name="type" type="radio" formControlName="type" value="2">
+                          <span>Тусгай засал</span>
+                      </label>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer justify-content-center">
+                <button (click)="onSubmit()" class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium"><i class="fas fa-plus"></i> Нэмэх</button>
+                <button type="button" class="btn btn-danger tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" data-dismiss="modal"> <i class="fas fa-times"></i> Хаах</button>
+              </div>
+            </div>
+          </div><!-- modal-dialog -->
+        </div>
+
+        
+      <div id="editBook" class="modal fade show effect-sign" >
+          <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content bd-0 tx-14">
+              <div class="modal-header pd-x-20">
+                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Пунцоглин хийд</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body pd-20">
+                
+                  <h3 class="tx-inverse  mg-b-5"><i class="fas fa-edit"></i> Ном Засах</h3>
+                  <p>Нэр , үнэ талбаруудыг заавал бөглөнө.</p>
+                  <br>
+                  <div class="form-group">
+                    <input type="text" name="email"  [(ngModel)]="selectedBook.name" class="form-control pd-y-12" placeholder="Нэр">
+                  </div><!-- form-group -->
+                  <div class="form-group mg-b-20">
+                      <textarea rows="3" class="form-control" [(ngModel)]="selectedBook.description"  placeholder="Бэлдэх зүйлс"></textarea>
+                  </div><!-- form-group -->
+                  <div class="form-group mg-b-20">
+                      <input type="number" name="text" [(ngModel)]="selectedBook.price"  class="form-control pd-y-12" placeholder="Үнэ">
+                  </div><!-- form-group -->
+                  <div class="form-group mg-b-20">
+                      <label class="rdiobox">
+                          <input name="type" type="radio" [(ngModel)]="selectedBook.type"  value="1">
+                          <span>Ном , засал</span>
+                      </label>
+                      <label class="rdiobox">
+                          <input name="type" type="radio" [(ngModel)]="selectedBook.type"  value="2">
+                          <span>Тусгай засал</span>
+                      </label>
+                  </div>
+                
+              </div>
+              <div class="modal-footer justify-content-center">
+                <button (click)="onUpdate()" class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium"><i class="fas fa-edit"></i> Засах</button>
+                <button type="button" class="btn btn-danger tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" data-dismiss="modal"> <i class="fas fa-times"></i> Хаах</button>
+              </div>
+            </div>
+          </div><!-- modal-dialog -->
+        </div>
