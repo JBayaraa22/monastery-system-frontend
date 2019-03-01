@@ -17316,12 +17316,7 @@ textarea.parsley-success:focus {
 /* --------------------------------------------------- */
 /* ############### 6. FULL RTL SUPPORT ############### */
 /* --------------------------------------------------- */
-.rtl {
-  /* ##### EMAIL PAGE ##### */
-  /** WITH SUB LEFT MENU **/
-  /** SITEMAP **/
-  /* #################### DASHBOARD SKINS #################### */
-}
+
 .rtl .br-header::before {
   left: auto;
   right: -4px;
@@ -50849,7 +50844,7 @@ a.hover-white-8:hover, a.hover-white-8:focus {
 }
 
 .tx-spacing-7 {
-  letter-spacign: 3.5px;
+  letter-spacing: 3.5px;
 }
 
 .tx-spacing-8 {
