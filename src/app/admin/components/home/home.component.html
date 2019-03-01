@@ -15,10 +15,10 @@
               <div class="card shadow-base bd-0">
                 <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
                   <h6 class="card-title tx-uppercase tx-12 mg-b-0">Нийт бичилтийн тоо</h6>
-                  <span class="tx-12 tx-uppercase"> 1 сарын 4, 2017</span>
+                  <span class="tx-12 tx-uppercase">{{ today | date:'yyyy-MM-dd H:m:s' }}</span>
                 </div><!-- card-header -->
                 <div class="card-body d-xs-flex justify-content-between align-items-center">
-                  <h4 class="mg-b-0 tx-inverse tx-lato tx-bold">362 ширхэг баримт </h4>
+                  <h4 class="mg-b-0 tx-inverse tx-lato tx-bold">{{receipts?.length}} ширхэг баримт </h4>
                   <p class="mg-b-0 tx-sm"><i class="fas fa-chart-bar tx-48"></i></p>
                 </div><!-- card-body -->
               </div><!-- card -->
@@ -27,10 +27,10 @@
               <div class="card shadow-base bd-0">
                 <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
                   <h6 class="card-title tx-uppercase tx-12 mg-b-0">Нийт орлого</h6>
-                  <span class="tx-12 tx-uppercase">1 сарын 4, 2017</span>
+                  <span class="tx-12 tx-uppercase">{{ today | date:'yyyy-MM-dd H:m:s' }}</span>
                 </div><!-- card-header -->
                 <div class="card-body d-xs-flex justify-content-between align-items-center">
-                  <h4 class="mg-b-0 tx-inverse tx-lato tx-bold">362000 төгрөг</h4>
+                  <h4 class="mg-b-0 tx-inverse tx-lato tx-bold">{{total}} төгрөг</h4>
                   <p class="mg-b-0 tx-sm"><i class="fas fa-chart-bar tx-48"></i></p>
                 </div><!-- card-body -->
               </div><!-- card -->
@@ -39,10 +39,10 @@
                 <div class="card shadow-base bd-0">
                   <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
                     <h6 class="card-title tx-uppercase tx-12 mg-b-0">Буцаасан баримтын тоо</h6>
-                    <span class="tx-12 tx-uppercase"> 1 сарын 4, 2017</span>
+                    <span class="tx-12 tx-uppercase"> {{ today | date:'yyyy-MM-dd H:m:s' }}</span>
                   </div><!-- card-header -->
                   <div class="card-body d-xs-flex justify-content-between align-items-center">
-                    <h4 class="mg-b-0 tx-inverse tx-lato tx-bold">362 ширхэг баримт </h4>
+                    <h4 class="mg-b-0 tx-inverse tx-lato tx-bold">{{ returned }} ширхэг баримт </h4>
                     <p class="mg-b-0 tx-sm"><i class="fas fa-chart-bar tx-48"></i></p>
                   </div><!-- card-body -->
                 </div><!-- card -->
@@ -56,31 +56,59 @@
                   <h6 class="card-title tx-uppercase tx-12 mg-b-0">Бичээчийн мэдээлэл</h6>
                 </div><!-- card-header -->
                 <table class="table table-responsive mg-b-0 tx-12">
-                  <thead>
-                    <tr class="tx-10">
-                      <th class="wd-10p pd-y-5">&nbsp;</th>
-                      <th class="pd-y-5">Бичээч</th>
-                      <th class="pd-y-5">Төлөв</th>
-                      <th class="pd-y-5">Хзэээ нэвтэрсэн</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="pd-l-20">
-                        <img src="../../../../assets/images/user-placeholder.png" class="wd-36 rounded-circle" alt="Image">
-                      </td>
-                      <td>
-                        <a href="" class="tx-inverse tx-14 tx-medium d-block">Dashaa</a>
-                        <span class="tx-11 d-block">Үүрэг: Бичээч</span>
-                      </td>
-                      <td class="tx-12">
-                        <span class="square-8 bg-success mg-r-5 rounded-circle"></span> Идэвхитэй байна
-                      </td>
-                      <td>2018/02/14 17:05:00</td>
-                    </tr>
-                    
-                  </tbody>
-                </table>
+                    <thead>
+                      <tr class="tx-10">
+                        <th class="wd-10p pd-y-5">&nbsp;</th>
+                        <th class="pd-y-5">Хэрэглэгчийн нэр</th>
+                        <th class="pd-y-5">Төлөв</th>
+                        <th class="pd-y-5">Бүртгэгдсэн огноо</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="activeUsers?.length > 0; else emptyList">
+                      <tr *ngFor="let cashier of activeUsers; let i = index">
+                        <td class="pd-l-20">
+                          <img src="../../../../assets/images/user-placeholder.png" class="wd-36 rounded-circle" alt="Image">
+                        </td>
+                        <td>
+                          <a href="" class="tx-inverse tx-14 tx-medium d-block">{{ cashier?.username }}</a>
+                          <span class="tx-11 d-block">Үүрэг: Бичээч</span>
+                        </td>
+                        <td class="tx-12" *ngIf="cashier?.status == 1; else offline">
+                          <span class="square-8 bg-success mg-r-5 rounded-circle" ></span> Ажиллаж байна
+                        </td>  
+                          <ng-template #offline>
+                              <td class="tx-12">
+                              <span class="square-8 bg-danger mg-r-5 rounded-circle" ></span> Системээс гарсан
+                            </td>
+                          </ng-template>
+                        
+                        <td>{{ cashier?.last_logged_in }}</td>
+                        
+                      </tr>
+                      
+                    </tbody>
+  
+                    <ng-template #emptyList>
+                      <tfoot>
+                        <tr>
+                          <td colspan="5">
+                              <div class="col-xl-12">
+                                  <div class="alert alert-danger alert-solid" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                      <span aria-hidden="true">×</span>
+                                    </button>
+                                    <div class="d-flex align-items-center justify-content-start">
+                                      <i class="icon ion-ios-close alert-icon tx-32"></i>
+                                      <span><strong>Хоосон байна!</strong> Одоогоор ажиллаж байгаа бичээч байхгүй байна.</span>
+                                    </div><!-- d-flex -->
+                                  </div>
+                                </div>
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </ng-template>
+                  </table>
+                  
                 <div class="card-footer tx-12 pd-y-15 bg-transparent">
                   <a routerLink="/admin/users"><i class="fa fa-angle-down mg-r-5"></i>Бүх хэрэглэгчийг харах</a>
                 </div><!-- card-footer -->
@@ -93,7 +121,7 @@
                 <div class="card shadow-base bd-0">
                   <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
                     <h6 class="card-title tx-uppercase tx-12 mg-b-0">Буцаагдсан баримт</h6>
-                    <span class="tx-12 tx-uppercase">1 сарын 4 2017</span>
+                    <span class="tx-12 tx-uppercase"> {{ today | date:'yyyy-MM-dd H:m:s' }}</span>
                   </div><!-- card-header -->
                   <div class="card-body">
                     <p class="tx-sm tx-inverse tx-medium mg-b-0">Буцаагдсан баримт</p>
@@ -102,7 +130,7 @@
                       <div class="col-3 tx-12">Буцаагдсан баримт</div><!-- col-3 -->
                       <div class="col-9">
                         <div class="progress rounded-0 mg-b-0">
-                          <div class="progress-bar bg-info wd-50p lh-3" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
+                          <div class="progress-bar bg-info lh-3" role="progressbar" attr.aria-valuenow="returnedPercent"  aria-valuemin="0" aria-valuemax="100">{{ returnedPercent }} %</div>
                         </div><!-- progress -->
                       </div><!-- col-9 -->
                     </div><!-- row -->

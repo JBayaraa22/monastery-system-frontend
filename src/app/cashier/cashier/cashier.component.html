@@ -1,4 +1,4 @@
-<div class="br-logo"><a href=""><span>[</span>Пунцоглин <i>хийд</i><span>]</span></a></div>
+<div class="br-logo"><a href="javasript:void(0);"><span>[</span>Пунцоглин <i>хийд</i><span>]</span></a></div>
 <div class="br-sideleft overflow-y-auto">
   <label class="sidebar-label pd-x-10 mg-t-20 op-3">Цэс</label>
   <ul class="br-sideleft-menu">
@@ -23,7 +23,7 @@
     <div class="info-list-item">
       <div>
         <p class="info-list-label">Нийт бичилт</p>
-        <h5 class="info-list-amount">32.3%</h5>
+        <h5 class="info-list-amount">{{receipts?.length}} баримт</h5>
       </div>
 
     </div><!-- info-list-item -->
@@ -31,7 +31,7 @@
     <div class="info-list-item">
       <div>
         <p class="info-list-label">Нийт орлого</p>
-        <h5 class="info-list-amount">140.05</h5>
+        <h5 class="info-list-amount">{{ total }} ₮</h5>
       </div>
 
     </div><!-- info-list-item -->
@@ -39,7 +39,7 @@
     <div class="info-list-item">
       <div>
         <p class="info-list-label">Нийт буцаасан</p>
-        <h5 class="info-list-amount">82.02%</h5>
+        <h5 class="info-list-amount">{{ returned }} баримт</h5>
       </div>
     </div><!-- info-list-item -->
 
@@ -50,8 +50,13 @@
 <!-- ########## END: LEFT PANEL ########## -->
 
 <!-- ########## START: HEAD PANEL ########## -->
-<div class="br-header">
-
+<div class="br-header no-print">
+  <div class="br-header-left">
+          
+    <div class="navicon-left hidden-md-down"><a  id="btnLeftMenu" ><i class="fas fa-bars"></i></a></div>
+    <div class="navicon-left hidden-lg-up"><a id="btnLeftMenuMobile"><i class="fas fa-bars"></i></a></div>
+    
+  </div>
   <div class="br-header-right">
     <nav class="nav">
       <div class="dropdown">
@@ -73,6 +78,4 @@
   <router-outlet>
 
   </router-outlet>
-
-
 </div>

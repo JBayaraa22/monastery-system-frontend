@@ -136,16 +136,6 @@
 
 
 
-<script>
-$('#datatable1').DataTable({
-  responsive: true,
-  language: {
-    searchPlaceholder: 'Search...',
-    sSearch: '',
-    lengthMenu: '_MENU_ items/page',
-  }
-});</script>
-
     </div>
 
 
@@ -174,13 +164,13 @@ $('#datatable1').DataTable({
                   <p>Нэр , үнэ талбаруудыг заавал бөглөнө.</p>
                   <br>
                   <div class="form-group">
-                    <input type="text" name="email" formControlName="name" class="form-control pd-y-12" placeholder="Нэр">
+                    <input type="text" formControlName="name" class="form-control pd-y-12" placeholder="Нэр">
                   </div><!-- form-group -->
                   <div class="form-group mg-b-20">
                       <textarea rows="3" class="form-control" formControlName="description" placeholder="Бэлдэх зүйлс"></textarea>
                   </div><!-- form-group -->
                   <div class="form-group mg-b-20">
-                      <input type="number" name="text" formControlName="price" class="form-control pd-y-12" placeholder="Үнэ">
+                      <input type="number"  formControlName="price" class="form-control pd-y-12" placeholder="Үнэ">
                   </div><!-- form-group -->
                   <div class="form-group mg-b-20">
                       <label class="rdiobox">

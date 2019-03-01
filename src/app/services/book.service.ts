@@ -43,4 +43,35 @@ export class BookService {
       })
     )
   }
+
+  insertYears(data){
+    return this.http.post<any>(`${environment.apiBase}years/?insert` , data , this.requestOptions).pipe(
+      map((data)=>{
+        return data
+      })
+    )
+  }
+  getAllYears(){
+    return this.http.get<any>(`${environment.apiBase}years/?getAll` ).pipe(
+      map((data)=>{
+        return data
+      })
+    )
+  }
+
+  deleteYear(id){
+    return this.http.post<any>(`${environment.apiBase}years/?delete` , {id : id} , this.requestOptions).pipe(
+      map((data)=>{
+        return data.response
+      })
+    )
+  }
+
+  getYear(id){
+    return this.http.post<any>(`${environment.apiBase}years/?get` , {id : id} , this.requestOptions).pipe(
+      map((data)=>{
+        return data
+      })
+    )
+  }
 }

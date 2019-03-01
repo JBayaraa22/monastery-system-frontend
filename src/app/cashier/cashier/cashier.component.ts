@@ -3,6 +3,9 @@ import { User } from 'src/app/models/user';
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { Receipt } from 'src/app/models/receipt';
+import { ReceiptService } from 'src/app/services/receipt.service';
+import { makeToast } from 'src/app/shared/functions';
 @Component({
   selector: 'app-cashier',
   templateUrl: './cashier.component.html',
@@ -11,15 +14,30 @@ import { AuthService } from 'src/app/services/auth.service';
 export class CashierComponent implements OnInit {
 
   currentUser : User
-  constructor(private router : Router , private authService : AuthService) { 
+  receipts : Array<Receipt>
+  today = new Date();
+  total : number = 0
+  returned : number = 0
+  constructor(private router : Router , private authService : AuthService , private receiptService : ReceiptService) { 
     
   }
 
   ngOnInit() {
-    this.currentUser = new User(localStorage.getItem('currentUser'))
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+    this.getReceipts();
   }
+
+  getReceipts(){
+    this.receiptService.getReceipt(this.currentUser.username).subscribe(data=>{
+      if(data.response.code==200){
+        this.receipts = data.data
+        this.total = this.receipts.filter((receipt) => receipt.status == 1).reduce((sum , book)=> +sum + +book.price , 0)    
+        this.returned = this.receipts.filter((receipt) => receipt.status == 2).reduce((sum , book)=> +sum + 1 , 0)
+      }
+    })
+  }
+
   logout(){
-    
     Swal.fire({
       title: '<strong>Анхаар!</u></strong>',
       type: 'info',
@@ -33,19 +51,15 @@ export class CashierComponent implements OnInit {
         'Үгүй, хаах'
     }).then( (result) => {
       if (result.value) {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000
-        });
-        
-        Toast.fire({
-          type: 'warning',
-          title: 'Системээс гарлаа!'
+        this.authService.logout().subscribe(isLoggedOut=>{
+          if(isLoggedOut)
+          {
+            this.router.navigate(['/login']);
+            makeToast("Системээс гарлаа !" , 'warning' )
+          }
+          else 
+            makeToast("Алдаа гарлаа дахин оролдоно уу !" , 'error' )
         })
-        this.authService.logout()
-        this.router.navigate(['/login']);
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ){}

@@ -1,12 +1,250 @@
-  <!-- ########## START: MAIN PANEL ########## -->
-  <div class="br-mainpanel" style="position: relative;">
-    <div class="br-pagetitle">
-      <i class="fas fa-briefcase tx-48 "></i>
-      <div>
-        <h4>Жилийн засал</h4>
-        <p class="mg-b-0">Жилийн засал нэмэх , хасах мөн засах боломжтой.</p>
-      </div>
+<!-- ########## START: MAIN PANEL ########## -->
+<div class="br-mainpanel" style="position: relative;">
+  <div class="br-pagetitle">
+    <i class="fas fa-briefcase tx-48 "></i>
+    <div>
+      <h4>Жилийн засал</h4>
+      <p class="mg-b-0">Жилийн засал нэмэх , хасах мөн засах боломжтой.</p>
     </div>
+  </div>
 
-    <div class="br-pagebody">
+  <div class="br-pagebody">
+    <div class="card bd-0 shadow-base pd-25 pd-xs-40 mg-t-20">
+      <div class="card-header bg-transparent pd-0 bd-b-0">
+        <h5 class="tx-14 tx-uppercase tx-spacing-1 tx-semibold tx-inverse">Жилийн заслийн жагсаалт</h5>
+        <p class="tx-14 mg-b-20 mg-xs-b-30">Жил болгон шинэчлэгдэх ёстой.</p>
+        <p class="mg-b-10 mg-t-10">
+
+          <button class="btn btn-primary btn-with-icon btn-block mg-t-10 wd-200" data-toggle="modal"
+            data-target="#yearsModal">
+            <div class="ht-40">
+              <span class="icon wd-40"><i class="fa fa-plus"></i></span>
+              <span class="pd-x-15">Жилийн засал нэмэх</span>
+            </div>
+          </button>
+
+        </p>
+      </div><!-- card-header -->
+      <div class="card-block pd-0">
+
+
+        <table class="table table-bordered table-colored table-dark">
+          <thead>
+            <tr>
+              <th>Төрсөн он</th>
+              <th>12 Жил</th>
+              <th>Хүйс</th>
+              <th>Унших номын жагсаалт</th>
+              <th>Тайлбар</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody *ngIf="yearsList?.length > 0; else empty">
+            <tr *ngFor="let year of yearsList; let i = index">
+              <td>{{ year?.year  }}</td>
+              <td [ngSwitch]="year?.years_ref">
+                <b *ngSwitchCase="1">Хулгана</b>
+                <b *ngSwitchCase="2">Үхэр</b>
+                <b *ngSwitchCase="3">Бар</b>
+                <b *ngSwitchCase="4">Туулай</b>
+                <b *ngSwitchCase="5">Луу</b>
+                <b *ngSwitchCase="6">Могой</b>
+                <b *ngSwitchCase="7">Морь</b>
+                <b *ngSwitchCase="8">Хонь</b>
+                <b *ngSwitchCase="9">Бич</b>
+                <b *ngSwitchCase="10">Тахиа</b>
+                <b *ngSwitchCase="11">Нохой</b>
+                <b *ngSwitchCase="12">Гахай</b>
+                
+              </td>
+              <td *ngIf="year?.gender == 1; else female">Эрэгтэй</td>
+              <ng-template #female>
+                  <td>Эмэгтэй</td>
+              </ng-template >
+              <td>{{ year?.books }}</td>
+              <td>{{ year?.description }}</td>
+              <td>
+                  <button (click)="removeYear(i , year?.id)"  class="btn btn-danger btn-icon rounded-circle mg-r-5 mg-b-10"><div><i class="fas fa-trash"></i></div></button>
+              </td>
+            </tr>
+            <ng-template #empty>
+          <tfoot>
+            <tr>
+              <td colspan="4">
+                <div class="alert alert-warning alert-bordered pd-y-20" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                  <div class="d-sm-flex align-items-center justify-content-start">
+                    <i class="icon ion-alert-circled alert-icon tx-52 tx-warning mg-r-20"></i>
+                    <div class="mg-t-20 mg-sm-t-0">
+                      <h5 class="mg-b-2 tx-warning">Хоосон байна ! Одоогоор баримт бичигдээгүй байна .</h5>
+                      <p class="mg-b-0 tx-gray">Сүүлийн сарын бичлэг энд харагдана.</p>
+                    </div>
+                  </div><!-- d-flex -->
+                </div>
+              </td>
+            </tr>
+          </tfoot>
+          </ng-template>
+          </tbody>
+        </table>
+      </div>
+
     </div><!-- br-mainpanel -->
+
+    <form [formGroup]="yearForm" >
+    <div id="yearsModal" class="modal fade show effect-slide-in-right">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content tx-size-sm">
+          <div class="modal-header pd-x-20">
+            <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Пунцоглин хийд</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body pd-20">
+            <h4 class=" lh-3 mg-b-20"><a href="" class="tx-inverse hover-primary">{{ title }}</a></h4>
+            
+              <div class="row">
+
+                <div class="form-layout form-layout-6 wd-800">
+                  <div class="row no-gutters">
+                    <div class="col-5 col-sm-4">
+                      Он:
+                    </div><!-- col-4 -->
+                    <div class="col-7 col-sm-8">
+                      <input class="form-control" type="number" formControlName="year"
+                        placeholder="Он оруулна уу : 1997 г.м.">
+                    </div><!-- col-8 -->
+                  </div><!-- row -->
+                  <div class="row no-gutters">
+                    <div class="col-5 col-sm-4">
+                      Жил:
+                    </div><!-- col-4 -->
+                    <div class="col-7 col-sm-8">
+                      <select class="form-control select2" formControlName="years_ref"
+                        data-placeholder="Жил оруулна уу : Хулгана , Үхэр г.м.">
+                        <option value="1">Хулгана</option>
+                        <option value="2">Үхэр</option>
+                        <option value="3">Бар</option>
+                        <option value="4">Туулай</option>
+                        <option value="5">Луу</option>
+                        <option value="6">Могой</option>
+                        <option value="7">Морь</option>
+                        <option value="8">Хонь</option>
+                        <option value="9">Бич</option>
+                        <option value="10">Тахиа</option>
+                        <option value="11">Нохой</option>
+                        <option value="12">Гахай</option>
+                      </select>
+                    </div><!-- col-8 -->
+                  </div><!-- row -->
+                  <div class="row no-gutters">
+                    <div class="col-5 col-sm-4">
+                      Хүйс:
+                    </div><!-- col-4 -->
+                    <div class="col-7 col-sm-8">
+                      <select class="form-control select2" formControlName="gender"
+                        data-placeholder="Хүйсээ сонгоно уу">
+                        <option value="1">Эрэгтэй</option>
+                        <option value="2">Эмэгтэй</option>
+                      </select>
+                    </div><!-- col-8 -->
+                  </div><!-- row -->
+                  <div class="row no-gutters">
+                    <div class="col-5 col-sm-4">
+                      Тайлбар:
+                    </div><!-- col-4 -->
+                    <div class="col-7 col-sm-8">
+                      <input class="form-control" type="text" formControlName="description"
+                        placeholder="Мэнгэ , суудал зэргийг оруулна уу.">
+                    </div><!-- col-8 -->
+                  </div><!-- row -->
+
+                  <div class="row no-gutters">
+                    <div class="col-5 col-sm-4">
+                      Номын нэрээр хайх :
+                    </div><!-- col-4 -->
+                    <div class="col-7 col-sm-8">
+                      <input class="form-control" type="text" (input)="searchBook($event.target.value)"
+                        placeholder="Номын нэр ...">
+                    </div><!-- col-8 -->
+                  </div>
+
+                  <div class="row no-gutters" *ngIf="searchResult?.length > 0">
+                    <div class="col-5 col-sm-4">
+                      Хайлтын үр дүн:
+                    </div>
+                    <div class="col-md-8 col-7">
+                      <table class="table table-bordered table-colored table-dark">
+                        <thead>
+                          <tr>
+                            <th>Нэр</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let book of searchResult">
+                            <td>{{book?.name}}</td>
+                            <td>
+                              <button (click)="addBook(book)"
+                                class="btn btn-warning btn-icon rounded-circle mg-r-5 mg-b-10">
+                                <div><i class="fas fa-plus-square"></i></div>
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+
+
+
+                    </div>
+                  </div>
+                  <div class="row no-gutters" formArrayName="books">
+                    <div class="col-md-12">
+                      <table class="table table-bordered table-colored table-dark">
+                        <thead>
+                          <tr>
+                            <th>Нэр</th>
+                            <th>Үнэ</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let book of bookForms?.controls; let i = index" [formGroupName]="i">
+                            <td>
+                              <input type="number" class="form-control" hidden formControlName="id">
+                              <input type="text" class="form-control" disabled formControlName="price"
+                                placeholder="Нэр">
+                            </td>
+                            <td>
+                              <input type="text" class="form-control" disabled formControlName="name" placeholder="">
+                            </td>
+                            <td>
+                              <button class="btn btn-danger btn-icon rounded-circle mg-r-5 mg-b-10"
+                                (click)="deleteBook(i)">
+                                <div><i class="fa fa-trash"></i></div>
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                  </div>
+                </div>
+              </div>
+
+          </div>
+    
+        </div><!-- modal-body -->
+        <div class="modal-footer">
+          <button type="button" (click)="onSubmit()" class="btn btn-success tx-size-xs"> <i class="fas fa-save"></i>
+            {{ buttonText }}</button>
+          <button type="button" class="btn btn-danger tx-size-xs" data-dismiss="modal"> <i class="fas fa-times"></i>
+            Хаах</button>
+        </div>
+      </div>
+    </div><!-- modal-dialog -->
+  </div>
+</form>

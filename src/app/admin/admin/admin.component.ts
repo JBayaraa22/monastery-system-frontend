@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { makeToast } from 'src/app/shared/functions';
 
 @Component({
   selector: 'app-admin',
@@ -17,7 +18,10 @@ export class AdminComponent implements OnInit {
     buttonsStyling: false,
   })
   constructor(private authService : AuthService , private router : Router ) { 
-    this.currentUser = new User(JSON.parse(localStorage.getItem('currentUser')))
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+    if(this.currentUser.role == 2)
+      this.router.navigate(['/login']);
+
   }
 
   ngOnInit() {
@@ -37,19 +41,18 @@ export class AdminComponent implements OnInit {
         'Үгүй, хаах'
     }).then( (result) => {
       if (result.value) {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000
-        });
-        
-        Toast.fire({
-          type: 'warning',
-          title: 'Системээс гарлаа!'
+        this.authService.logout().subscribe(isLoggedOut=>{
+          if(isLoggedOut)
+          {
+            this.router.navigate(['/login']);
+            makeToast("Системээс гарлаа !" , 'warning' )
+          }
+          else 
+            makeToast("Алдаа гарлаа дахин оролдоно уу !" , 'error' )
         })
-        this.authService.logout()
-        this.router.navigate(['/login']);
+        
+        
+        
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ){}

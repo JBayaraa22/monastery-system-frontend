@@ -23,6 +23,11 @@ export class PrintComponent implements OnInit {
   yroolType : string
   totalPrice : number 
   searchResult : Array<Book>
+
+  year : string
+  years_ref : string
+  gender : string
+
   constructor(private bookService : BookService , private receiptService : ReceiptService) {
     
     this.receipt.books = []
@@ -37,15 +42,18 @@ export class PrintComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentUser = new User(JSON.parse(localStorage.getItem('currentUser')))
-    console.log(this.currentUser)
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'))    
     this.receipt.printedBy = this.currentUser.username
-    this.follow.name = "Хурал даган баясах"
+    this.follow.name = " Маанийн ерөөл "
     this.follow.price = 0
     this.follow.description = ""
     this.follow.id = null
-     
-    this.yrool.name = "Маанийн ерөөл" + (this.yroolType ? `(${this.yroolType})`: '');
+    
+    
+    this.yrool.name = "Хурал даган баясах"
+    if(this.yroolType)
+      this.yrool.name += `(${this.yroolType})`
+
     this.yrool.price = 0
     this.yrool.id =  null
     this.yrool.description = ""
@@ -53,6 +61,12 @@ export class PrintComponent implements OnInit {
     this.calculateTotal()
    
     
+  }
+
+  changeType(){
+    this.yrool.name = "Хурал даган баясах"
+    if(this.yroolType)
+      this.yrool.name += `(${this.yroolType})`
   }
   calculateTotal(){
     this.totalPrice = this.receipt.books.reduce((total , book) => +total + +book.price , 0)
@@ -69,7 +83,6 @@ export class PrintComponent implements OnInit {
     this.bookService.getAll().subscribe(data=>{
       this.books = data.filter(object=> object.type == 1 )
       this.special = data.filter(object=> object.type == 2 )
-      console.log(this.books)
     });
   }
   searchBookByName(value , type){
@@ -86,16 +99,12 @@ export class PrintComponent implements OnInit {
     {
       window.print()
       this.receiptService.insertReceipt(this.receipt).subscribe((response) => {
-      console.log(response)
-      makeToast(response.message , response.title)
+        makeToast(response.message , response.title)
       })
       makeToast("Баримтыг үнэн зөв хэвлэсэн эсэхийг шалгана уу ? " , 'warning')
     }
     else
       makeToast("Баримт хоосон байна" , 'error')
-    
-
-    console.log(this.receipt)
   }
 
   checkAmount(value , type){
@@ -117,5 +126,22 @@ export class PrintComponent implements OnInit {
           this.receipt.books.push(this.yrool)
     }
     this.calculateTotal()
+  }
+  addYears(){
+    if(this.year == "" || this.years_ref == "" || this.gender == "")
+      makeToast("Бүх талбаруудыг бөглөнө үү." , 'error')
+    else{
+      let id = this.year + this.years_ref + this.gender
+      this.bookService.getYear(id).subscribe(data=>{
+        if(data.response.code == 200){
+          data.data.books.forEach(book => {
+            this.receipt.books.push(book)
+          });
+        }
+        else{
+          makeToast(data.response.message , data.response.title)
+        }
+      })
+    }
   }
 }

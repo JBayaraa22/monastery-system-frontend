@@ -1,12 +1,296 @@
-  <!-- ########## START: MAIN PANEL ########## -->
-  <div class="br-mainpanel" style="position: relative;">
-    <div class="br-pagetitle">
-      <i class="fas fa-chart-pie tx-48 "></i>
-      <div>
-        <h4>Тайлан</h4>
-        <p class="mg-b-0">Өдөрт бичсэн баримтууд  , сарын болон өдрийн тайлангууд авах боломжтой.</p>
+<!-- ########## START: MAIN PANEL ########## -->
+<div class="br-mainpanel" style="position: relative;">
+  <div class="br-pagetitle">
+    <i class="fas fa-chart-pie tx-48 "></i>
+    <div>
+      <h4>Тайлан</h4>
+      <p class="mg-b-0">Өдөрт бичсэн баримтууд , сарын болон өдрийн тайлангууд авах боломжтой.</p>
+
+     
+
+    </div>
+  </div>
+  <div class="br-pagebody">
+    <div class="card bd-0 shadow-base pd-25 pd-xs-40 mg-t-20">
+      <div class="card-header bg-transparent pd-0 bd-b-0">
+        <h5 class="tx-14 tx-uppercase tx-spacing-1 tx-semibold tx-inverse">Тайлан харах</h5>
+        <p class="tx-14 mg-b-20 mg-xs-b-30">Доорхи шүүлтүүрүүдээр тайлан харах боломжтой.</p>
+
+        <button class="btn btn-primary btn-with-icon btn-block mg-t-10 wd-200" data-target="#booksReport" data-toggle="modal">
+            <div class="ht-40">
+              <span class="icon wd-40"><i class="fas fa-book"></i></span>
+              <span class="pd-x-15">Номны тайлан харах</span>
+            </div>
+        </button>
+      </div><!-- card-header -->
+      <div class="card-block pd-0">
+        <div class="row mg-t-20">
+          <div class="form-layout form-layout-2" style="width:100%;">
+
+            <form [formGroup]="filterForm" class="row no-gutters">
+              <div class="col-md-4  mg-md-t-0">
+                <div class="form-group ">
+                  <label class="form-control-label">Эхлэх хугацаа <span class="tx-danger">*</span></label>
+                  <input class="form-control" type="date" formControlName="start_date" placeholder="Эхлэх хугацаа">
+                </div>
+              </div><!-- col-4 -->
+              <div class="col-md-4">
+                <div class="form-group ">
+                  <label class="form-control-label">Дуусах хугацаа <span class="tx-danger">*</span></label>
+                  <input class="form-control" type="date" formControlName="end_date" placeholder="Дуусах хугацаа">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group mg-md-l--1 ">
+                  <label class="form-control-label ">Хайх: <span class="tx-danger">*</span></label>
+                  <button (click)="onSubmit()" class="btn btn-primary btn-with-icon">
+                    <div class="ht-40 justify-content-between">
+                      <span class="pd-x-15">Шүүх</span>
+                      <span class="icon wd-40"><i class="fas fa-filter"></i></span>
+                    </div>
+                  </button>
+                </div>
+              </div><!-- col-4 -->
+            </form>
+            <!-- row -->
+          </div>
+        </div><!-- row -->
+
+        <div class="row mg-t-20">
+          <div class="col-md-6 mg-t-20">
+            <div class="card-header bg-transparent pd-0 bd-b-0">
+              <h5 class="tx-14 tx-uppercase tx-spacing-1 tx-semibold tx-inverse">Сүүлийн 30 хоногийн баримт</h5>
+  
+            </div><!-- card-header -->
+            <table class="table table-bordered table-colored table-dark">
+              <thead>
+                <tr>
+                  <th>Огноо</th>
+                  <th>Нийт орлого</th>
+                  <th>Бичигдсэн баримтын тоо</th>
+                  <th>Баримтууд харах</th>
+  
+                </tr>
+              </thead>
+              <tbody *ngIf="recent?.length > 0; else emptyRecent">
+                <tr *ngFor="let day of recent;">
+                  <td>{{ day?.printed_date  }}</td>
+                  <td>{{ day?.total_income  }} ₮</td>
+                  <th>{{ day?.total_receipt }} ширхэг баримт</th>
+                  <td>
+                    <a href="javascript:void(0)" class="btn btn-primary btn-icon rounded-circle mg-r-5 mg-b-10"
+                      (click)="seeReceipts(day?.printed_date)" data-target="#receipts" data-toggle="modal">
+                      <div><i class="fas fa-eye"></i></div>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+              <ng-template #emptyRecent>
+                <tfoot>
+                  <tr>
+                    <td colspan="4">
+                      <div class="alert alert-warning alert-bordered pd-y-20" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                        <div class="d-sm-flex align-items-center justify-content-start">
+                          <i class="icon ion-alert-circled alert-icon tx-52 tx-warning mg-r-20"></i>
+                          <div class="mg-t-20 mg-sm-t-0">
+                            <h5 class="mg-b-2 tx-warning">Хоосон байна ! Одоогоор баримт бичигдээгүй байна .</h5>
+                            <p class="mg-b-0 tx-gray">Сүүлийн сарын баримтын ерөнхий мэдээлэл энд харагдана.</p>
+                          </div>
+                        </div><!-- d-flex -->
+                      </div>
+                    </td>
+                  </tr>
+                </tfoot>
+              </ng-template>
+            </table>
+          </div>
+          <div class="col-md-6 mg-t-20">
+            <div class="card-header bg-transparent pd-0 bd-b-0">
+              <h5 class="tx-14 tx-uppercase tx-spacing-1 tx-semibold tx-inverse">Бичээчдийн тайлан /Сүүлийн сард/</h5>
+  
+
+              <table class="table table-bordered table-colored table-dark">
+                <thead>
+                  <tr>
+                    <th>Нэр</th>
+                    <th>Нийт орлого</th>
+                    <th>Бичигдсэн баримтын тоо</th>
+                    <th>Он сар</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="cashierRecent?.length > 0; else emptyCashierRecent">
+                  <tr *ngFor="let cashier of cashierRecent;">
+                    <td>{{ cashier?.printed_by  }}</td>
+                    <td>{{ cashier?.total_income  }} ₮</td>
+                    <th>{{ cashier?.total_receipt }} ширхэг баримт</th>
+                    <td>
+                      {{ cashier?.year }} - {{ cashier?.month }}
+                    </td>
+                  </tr>
+                  <ng-template #emptyCashierRecent>
+                    <tfoot>
+                      <tr>
+                        <td colspan="4">
+                          <div class="alert alert-warning alert-bordered pd-y-20" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                            <div class="d-sm-flex align-items-center justify-content-start">
+                              <i class="icon ion-alert-circled alert-icon tx-52 tx-warning mg-r-20"></i>
+                              <div class="mg-t-20 mg-sm-t-0">
+                                <h5 class="mg-b-2 tx-warning">Хоосон байна ! Одоогоор баримт бичигдээгүй байна .</h5>
+                                <p class="mg-b-0 tx-gray">Сүүлийн сарын бичлэг энд харагдана.</p>
+                              </div>
+                            </div><!-- d-flex -->
+                          </div>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </ng-template>
+                </tbody>
+                </table>
+
+            </div><!-- card-header -->
+          </div>
+        </div>
+      </div><!-- card-block -->
+    </div>
+  </div><!-- br-mainpanel -->
+  
+  <div id="receipts" class="modal fade show effect-sign">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content tx-size-sm">
+        <div class="modal-header pd-x-20">
+          <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">{{ receipts[0]?.printed_date | date : "y/M/d"}} өдөр
+            бичсэн баримтууд</h6>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body pd-20">
+
+          <div class="form-layout form-layout-2 mg-b-10">
+            <div class="row no-gutters">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-control-label">Номын нэр : <span class="tx-danger">*</span></label>
+                  <input class="form-control" type="text" name="firstname" (input)="countByName($event.target.value)"
+                    placeholder="Номын нэрийг оруулна уу ...">
+                </div>
+              </div><!-- col-4 -->
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-control-label">Уншигдсан тоо : <span class="tx-danger">*</span></label>
+                  <input class="form-control disabled" [(ngModel)]="count" type="number" name="firstname" value="0"
+                    disabled placeholder="">
+                </div>
+              </div><!-- col-4 -->
+            </div><!-- row -->
+
+          </div>
+
+          <table class="table table-bordered table-colored table-light">
+            <thead>
+              <tr>
+                <th>Д/д</th>
+                <th>Хэнээс</th>
+                <th>Хэнд</th>
+                <th>Уншсан номууд</th>
+                <th>Бичээч</th>
+                <th>Огноо</th>
+                <th>Төлөв</th>
+                <th>Буцаах/Хэвлэх</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let receipt of receipts; let i = index;">
+                <th> {{ i + 1 }}</th>
+                <td>{{ receipt?.from }}</td>
+                <td>{{ receipt?.toWhom }}</td>
+                <td>{{ receipt?.book_list }}</td>
+
+                <td>{{ receipt?.printed_by }}</td>
+                <td>
+                  {{ receipt?.printed_date }}</td>
+                
+
+                <td class="tx-12" *ngIf="receipt?.status  == 1; else returnedReceipt">
+                  <span class="square-8 bg-success mg-r-5 rounded-circle"></span> Хэвлэгдсэн
+                </td>
+                <ng-template #returnedReceipt>
+                  <td class="tx-12">
+                    <span class="square-8 bg-danger mg-r-5 rounded-circle"></span> Буцаагдсан
+                  </td>
+                </ng-template>
+
+                <td class="tx-12" *ngIf="receipt?.status  == 1; else returnedReceiptButton">
+                  <button class="btn btn-danger btn-icon" (click)="changeReceiptStatus(receipt)" data-dismiss="modal">
+                    <div><i class="fa fa-undo"></i></div>
+                  </button>
+                </td>
+                <ng-template #returnedReceiptButton>
+                  <td>
+                  <button class="btn btn-primary btn-icon" (click)="changeReceiptStatus(receipt)" data-dismiss="modal">
+                    <div><i class="fa fa-print"></i></div>
+                  </button>
+                </td>
+                </ng-template>
+              </tr>
+
+            </tbody>
+          </table>
+
+        </div><!-- modal-body -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger tx-size-xs" data-dismiss="modal"><i
+              class="fas fa-times-circle"></i> Хаах</button>
+        </div>
       </div>
     </div>
+  </div>
 
-    <div class="br-pagebody">
-    </div><!-- br-mainpanel -->
+
+
+
+  
+  <div id="booksReport" class="modal fade show effect-sign">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content tx-size-sm">
+          <div class="modal-header pd-x-20">
+            <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">{{ today | date : "y/M"}} сард 
+              уншсан номнууд</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body pd-20">
+            <table class="table table-bordered table-colored table-light">
+              <thead>
+                <tr>
+                  <th>Д/д</th>
+                  <th>Номын нэр</th>
+                  <th>Уншигдсан тоо</th>
+                </tr>
+
+              </thead>
+              <tbody *ngIf="booksReport">
+                <tr *ngFor="let book of booksReport | keyvalue ; let i = index ">
+                  <td> {{i + 1}} </td>
+                  <td> {{book?.key}} </td>
+                  <td> {{book?.value}} </td>
+                </tr>
+              </tbody>
+            </table>
+  
+          </div><!-- modal-body -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger tx-size-xs" data-dismiss="modal"><i
+                class="fas fa-times-circle"></i> Хаах</button>
+          </div>
+        </div>
+      </div>
+    </div>

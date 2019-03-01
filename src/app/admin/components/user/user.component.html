@@ -27,29 +27,55 @@
                   <thead>
                     <tr class="tx-10">
                       <th class="wd-10p pd-y-5">&nbsp;</th>
-                      <th class="pd-y-5">Бичээч</th>
+                      <th class="pd-y-5">Хэрэглэгчийн нэр</th>
                       <th class="pd-y-5">Төлөв</th>
-                      <th class="pd-y-5">Хзэээ нэвтэрсэн</th>
+                      <th class="pd-y-5">Бүртгэгдсэн огноо</th>
                       <th class="pd-y-5">Засварлах</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
+                  <tbody *ngIf="userList?.length > 0; else emptyList">
+                    <tr *ngFor="let cashier of userList; let i = index">
                       <td class="pd-l-20">
                         <img src="../../../../assets/images/user-placeholder.png" class="wd-36 rounded-circle" alt="Image">
                       </td>
                       <td>
-                        <a href="" class="tx-inverse tx-14 tx-medium d-block">Dashaa</a>
+                        <a href="javascript:void(0)" class="tx-inverse tx-14 tx-medium d-block">{{ cashier?.username }}</a>
                         <span class="tx-11 d-block">Үүрэг: Бичээч</span>
                       </td>
-                      <td class="tx-12">
-                        <span class="square-8 bg-success mg-r-5 rounded-circle"></span> Идэвхитэй байна
-                      </td>
-                      <td>2018/02/14 17:05:00</td>
-                      <td><a href="" class="btn btn-dark btn-icon rounded-circle mg-r-5 mg-b-10"><div><i class="fas fa-cog"></i></div></a></td>
+                      <td class="tx-12" *ngIf="cashier?.status == 1; else offline">
+                        <span class="square-8 bg-success mg-r-5 rounded-circle" ></span> Ажиллаж байна
+                      </td>  
+                        <ng-template #offline>
+                            <td class="tx-12">
+                            <span class="square-8 bg-danger mg-r-5 rounded-circle" ></span> Системээс гарсан
+                          </td>
+                        </ng-template>
+                      
+                      <td>{{ cashier?.last_logged_in }}</td>
+                      <td><a href="javascriptLvoid(0);"  class="btn btn-dark btn-icon rounded-circle mg-r-5 mg-b-10" (click)="selectedUser=cashier" data-toggle="modal" data-target="#editUser"><div><i class="fas fa-cog"></i></div></a></td>
                     </tr>
                     
                   </tbody>
+
+                  <ng-template #emptyList>
+                    <tfoot>
+                      <tr>
+                        <td colspan="5">
+                            <div class="col-xl-12">
+                                <div class="alert alert-danger alert-solid" role="alert">
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                  </button>
+                                  <div class="d-flex align-items-center justify-content-start">
+                                    <i class="icon ion-ios-close alert-icon tx-32"></i>
+                                    <span><strong>Хоосон байна!</strong> Одоогоор бичээч бүртгэгдээгүй байна.</span>
+                                  </div><!-- d-flex -->
+                                </div>
+                              </div>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </ng-template>
                 </table>
                 
               </div><!-- card -->
@@ -75,25 +101,66 @@
               </button>
             </div>
             <div class="modal-body pd-20">
+              <form [formGroup]="addUserForm">
                 <h3 class="tx-inverse  mg-b-5">Хэрэглэгч нэмэх</h3>
-                <p>Зөвхөн бичээчийн эрхтэй хэрэглэгч нэмж болно.</p>
+                <p>Зөвхөн бичээчийн эрх нээх боломжтой.</p>
                 <br>
                 <div class="form-group">
-                  <input type="text" name="username" class="form-control pd-y-12" placeholder="Нэвтрэх нэр">
+                  <input type="text" formControlName="username" class="form-control pd-y-12" placeholder="Нэвтрэх нэр">
                 </div><!-- form-group -->
                 <div class="form-group mg-b-20">
-                    <input type="password" name="password" class="form-control pd-y-12" placeholder="Нууц үг">
+                    <input type="password" formControlName="password" class="form-control pd-y-12" placeholder="Нууц үг">
                 </div><!-- form-group -->
                 <div class="form-group mg-b-20">
-                    <input type="password" name="password_repeat" class="form-control pd-y-12" placeholder="Нууц үгээ давтана уу">
+                    <input type="password" formControlName="password_repeat" class="form-control pd-y-12" placeholder="Нууц үгээ давтана уу">
                 </div><!-- form-group -->
-              
+              </form>
                 
             </div>
             <div class="modal-footer justify-content-center">
-              <button type="button" class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium"><i class="fas fa-plus"></i> Нэмэх</button>
+              <button (click)="onSubmit()" class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium"><i class="fas fa-plus"></i> Нэмэх</button>
               <button type="button" class="btn btn-danger tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" data-dismiss="modal"> <i class="fas fa-times"></i> Хаах</button>
             </div>
           </div>
         </div><!-- modal-dialog -->
       </div>
+
+
+
+      
+      <div id="editUser" class="modal fade show effect-sign" >
+          <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content bd-0 tx-14">
+              <div class="modal-header pd-x-20">
+                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Пунцоглин хийд</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body pd-20">
+                
+                  <h3 class="tx-inverse  mg-b-5"><i class="fas fa-edit"></i> Хэрэглэгч засах</h3>
+                  <p>Бүх талбаруудыг талбаруудыг заавал бөглөнө.</p>
+                  <br>
+                  <div class="form-group">
+                    <input type="text" name="email"  [(ngModel)]="selectedUser.username" class="form-control pd-y-12 disabled" placeholder="Нэр" disabled>
+                  </div><!-- form-group -->
+                  
+                  <div class="form-group mg-b-20">
+                      <input type="password" name="text" [(ngModel)]="selectedUser.password"  class="form-control pd-y-12" placeholder="Шинэ нууц үг">
+                  </div><!-- form-group -->
+                  <div class="form-group mg-b-20">
+                      <input type="password" name="text" [(ngModel)]="selectedUser.password_repeat"  class="form-control pd-y-12" placeholder="Шинэ нууц үгээ давтана уу">
+                  </div><!-- form-group -->
+                 
+                
+              </div>
+              <div class="modal-footer justify-content-center">
+                <button  class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium"  (click)="updateUser()"><i class="fas fa-edit"></i> Засах</button>
+                <button type="button" class="btn btn-danger tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" (click)="deleteUser()" data-dismiss="modal"> <i class="fas fa-trash"></i> Устгах</button>
+                <button type="button" class="btn tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" data-dismiss="modal"> <i class="fas fa-times"></i> Хаах</button>
+              </div>
+            </div>
+          </div><!-- modal-dialog -->
+        </div>
+

@@ -10,6 +10,7 @@ const routes: Routes = [
     path : "cashier",
     component : CashierComponent,
     canActivate : [AuthGuard],
+    data : {role : "cashier"},
     children : [
     { path : "" , pathMatch : "full" , redirectTo : "today" }, 
       { path: 'today', component: TodayComponent },

@@ -1,4 +1,4 @@
-<div class="br-pagetitle">
+<div class="br-pagetitle no-print">
   <i class="fas fa-print tx-48 "></i>
   <div>
     <h4>Баримт хэвлэх</h4>
@@ -9,8 +9,7 @@
 <div class="br-pagebody">
   <div class="br-section-wrapper">
     <div class="row row-sm mg-t-20">
-      <div class="col-lg-6">
-
+      <div class="col-lg-6 no-print">
         <div id="accordion2" class="accordion accordion-head-colored accordion-inverse" role="tablist"
           aria-multiselectable="true">
           <div class="card">
@@ -88,30 +87,33 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label class="form-control-label">Номын нэр: <span class="tx-danger">*</span></label>
-                        <input class="form-control" type="text" name="searchName" (input)="searchBookByName($event.target.value , 1)"
+                        <input class="form-control" type="text" name="searchName"
+                          (input)="searchBookByName($event.target.value , 1)"
                           placeholder="Ном болон заслын нэрийг хайх...">
                       </div>
                     </div><!-- col-4 -->
 
                   </div>
 
-                  <div class="row" *ngIf="searchResult?.length > 0"> 
-                      <div class="col-lg-12 mg-t-20 mg-lg-t-0">
-                        <div class="list-group list-group-striped">
-                          <div *ngFor="let book of searchResult;" class="list-group-item pd-y-15 pd-x-20 d-xs-flex align-items-center justify-content-start">
-                            <div class="mg-xs-l-15 mg-t-10 mg-xs-t-0 mg-r-auto">
-                              <p class="mg-b-0 tx-inverse tx-medium">{{ book?.name }}</p>
-                              <span class="d-block tx-13">{{ book?.price }}</span>
-                            </div>
-                            <div class="d-flex align-items-center mg-t-10 mg-xs-t-0">
-                              <a href="javascript:void(0)" (click)="addToReceipt(book)" class="btn btn-primary rounded-circle btn-icon">
-                                <div class="tx-20"><i class="fas fa-folder-plus"></i></div>
-                              </a>
-                            </div>
-                          </div><!-- list-group-item -->
-                        </div><!-- list-group -->
-                      </div><!-- col-6 -->
-                    </div>
+                  <div class="row" *ngIf="searchResult?.length > 0">
+                    <div class="col-lg-12 mg-t-20 mg-lg-t-0">
+                      <div class="list-group list-group-striped">
+                        <div *ngFor="let book of searchResult;"
+                          class="list-group-item pd-y-15 pd-x-20 d-xs-flex align-items-center justify-content-start">
+                          <div class="mg-xs-l-15 mg-t-10 mg-xs-t-0 mg-r-auto">
+                            <p class="mg-b-0 tx-inverse tx-medium">{{ book?.name }}</p>
+                            <span class="d-block tx-13">{{ book?.price }}</span>
+                          </div>
+                          <div class="d-flex align-items-center mg-t-10 mg-xs-t-0">
+                            <a href="javascript:void(0)" (click)="addToReceipt(book)"
+                              class="btn btn-primary rounded-circle btn-icon">
+                              <div class="tx-20"><i class="fas fa-folder-plus"></i></div>
+                            </a>
+                          </div>
+                        </div><!-- list-group-item -->
+                      </div><!-- list-group -->
+                    </div><!-- col-6 -->
+                  </div>
                 </div>
 
 
@@ -139,39 +141,42 @@
                   <div class="row no-gutters">
                     <div class="col-md-8">
                       <div class="form-group">
-                        <label class="form-control-label">Хурал даган баясах: <span class="tx-danger">*</span></label>
-                        <input class="form-control" [(ngModel)]="follow.name" type="text" placeholder="Хурал даган баясах" disabled>
+                        <label class="form-control-label">Маанийн ерөөл: <span class="tx-danger">*</span></label>
+                        <input class="form-control" [(ngModel)]="follow.name" type="text"
+                          placeholder="Хурал даган баясах" disabled>
                       </div>
                     </div><!-- col-4 -->
                     <div class="col-md-4 mg-t--1 mg-md-t-0">
                       <div class="form-group mg-md-l--1">
-                        <label class="form-control-label">Хурал даган баясах мөнгөн дүн: <span
+                        <label class="form-control-label">Мөнгөн дүн: <span
                             class="tx-danger">*</span></label>
-                        <input class="form-control" [(ngModel)]="follow.price" type="number" value="McDoe" placeholder="" (input)="checkAmount($event.target.value , 1)">
+                        <input class="form-control" [(ngModel)]="follow.price" type="number" value="McDoe"
+                          placeholder="" (input)="checkAmount($event.target.value , 1)">
                       </div>
                     </div><!-- col-4 -->
 
                     <div class="col-md-4">
                       <div class="form-group bd-t-0-force">
-                        <label class="form-control-label">Маанийн ерөөл: <span class="tx-danger">*</span></label>
-                        <input class="form-control" type="text" [(ngModel)]="yrool.name" placeholder="Маанийн ерөөл" disabled>
+                        <label class="form-control-label">Хурал даган баясах: <span class="tx-danger">*</span></label>
+                        <input class="form-control" type="text" [(ngModel)]="yrool.name" placeholder="Маанийн ерөөл"
+                          disabled>
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="form-group mg-md-l--1 bd-t-0-force">
                         <label class="form-control-label mg-b-0-force">Төрөл : <span class="tx-danger">*</span></label>
-                        <select class="form-control select2" data-placeholder="Төрөл сонгох..." [(ngModel)]="yroolType">
+                        <select class="form-control select2" data-placeholder="Төрөл сонгох..." (change)="changeType()" [(ngModel)]="yroolType">
                           <option value="Ажил үйлс бүтээх">Ажил үйлс бүтээх</option>
-                          <option value="Ажил үйлс бүтээх">Ажил үйлс бүтээх</option>
-                          <option value="Ажил үйлс бүтээх">Ажил үйлс бүтээх</option>
-
+                          <option value="Эрүүл энх байх">Эрүүл энх байх</option>
+                          <option value="Эрүүл энх байх">Сайн оронд төрөх</option>
                         </select>
                       </div>
                     </div><!-- col-4 -->
                     <div class="col-md-4">
                       <div class="form-group bd-t-0-force">
                         <label class="form-control-label">Мөнгөн дүн: <span class="tx-danger">*</span></label>
-                        <input class="form-control" [(ngModel)]="yrool.price" type="number" (input)="checkAmount($event.target.value , 2)" placeholder="">
+                        <input class="form-control" [(ngModel)]="yrool.price" type="number"
+                          (input)="checkAmount($event.target.value , 2)" placeholder="">
                       </div>
                     </div>
                   </div><!-- row -->
@@ -197,36 +202,38 @@
             </div>
             <div id="collapseTwo2" class="collapse" role="tabpanel" aria-labelledby="headingTwo2" style="">
               <div class="card-block pd-20">
-                  <div class="form-layout form-layout-2">
-                      <div class="row no-gutters">
-                        <div class="col-md-12">
-                          <div class="form-group">
-                            <label class="form-control-label">Тусгай заслын нэр: <span class="tx-danger">*</span></label>
-                            <input class="form-control" type="text" name="searchName" (input)="searchBookByName($event.target.value , 2)"
-                              placeholder="Заслын нэрийг хайх...">
-                          </div>
-                        </div><!-- col-4 -->
-    
+                <div class="form-layout form-layout-2">
+                  <div class="row no-gutters">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="form-control-label">Тусгай заслын нэр: <span class="tx-danger">*</span></label>
+                        <input class="form-control" type="text" name="searchName"
+                          (input)="searchBookByName($event.target.value , 2)" placeholder="Заслын нэрийг хайх...">
                       </div>
-                      
-                  <div class="row" *ngIf="searchResult?.length > 0"> 
-                      <div class="col-lg-12 mg-t-20 mg-lg-t-0">
-                        <div class="list-group list-group-striped">
-                          <div *ngFor="let book of searchResult;" class="list-group-item pd-y-15 pd-x-20 d-xs-flex align-items-center justify-content-start">
-                            <div class="mg-xs-l-15 mg-t-10 mg-xs-t-0 mg-r-auto">
-                              <p class="mg-b-0 tx-inverse tx-medium">{{ book?.name }}</p>
-                              <span class="d-block tx-13">{{ book?.price }}</span>
-                            </div>
-                            <div class="d-flex align-items-center mg-t-10 mg-xs-t-0">
-                              <a href="javascript:void(0)" (click)="addToReceipt(book)" class="btn btn-primary rounded-circle btn-icon">
-                                <div class="tx-20"><i class="fas fa-folder-plus"></i></div>
-                              </a>
-                            </div>
-                          </div><!-- list-group-item -->
-                        </div><!-- list-group -->
-                      </div><!-- col-6 -->
-                    </div>
-                    </div>
+                    </div><!-- col-4 -->
+
+                  </div>
+
+                  <div class="row" *ngIf="searchResult?.length > 0">
+                    <div class="col-lg-12 mg-t-20 mg-lg-t-0">
+                      <div class="list-group list-group-striped">
+                        <div *ngFor="let book of searchResult;"
+                          class="list-group-item pd-y-15 pd-x-20 d-xs-flex align-items-center justify-content-start">
+                          <div class="mg-xs-l-15 mg-t-10 mg-xs-t-0 mg-r-auto">
+                            <p class="mg-b-0 tx-inverse tx-medium">{{ book?.name }}</p>
+                            <span class="d-block tx-13">{{ book?.price }}</span>
+                          </div>
+                          <div class="d-flex align-items-center mg-t-10 mg-xs-t-0">
+                            <a href="javascript:void(0)" (click)="addToReceipt(book)"
+                              class="btn btn-primary rounded-circle btn-icon">
+                              <div class="tx-20"><i class="fas fa-folder-plus"></i></div>
+                            </a>
+                          </div>
+                        </div><!-- list-group-item -->
+                      </div><!-- list-group -->
+                    </div><!-- col-6 -->
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -244,7 +251,63 @@
             </div>
             <div id="collapseThree2" class="collapse" role="tabpanel" aria-labelledby="headingThree2" style="">
               <div class="card-block pd-20">
-                
+
+
+                <div class="form-layout form-layout-2">
+                  <div class="row no-gutters">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label class="form-control-label">Он /1997 г.м./: <span class="tx-danger">*</span></label>
+                        <input class="form-control" [(ngModel)]="year" type="number" name="year"
+                          placeholder="Он : 1997 , 1968 г.м.">
+                      </div>
+                    </div><!-- col-4 -->
+                    <div class="col-md-3 mg-t--1 mg-md-t-0">
+                      <div class="form-group mg-md-l--1">
+                        <label class="form-control-label">Жил : <span class="tx-danger">*</span></label>
+                        <select class="form-control select2" [(ngModel)]="years_ref" type="text" name="years_ref"
+                          data-placeholder="Жилээ сонгоно уу ...">
+                          <option value="1">Хулгана</option>
+                          <option value="2">Үхэр</option>
+                          <option value="3">Бар</option>
+                          <option value="4">Туулай</option>
+                          <option value="5">Луу</option>
+                          <option value="6">Могой</option>
+                          <option value="7">Морь</option>
+                          <option value="8">Хонь</option>
+                          <option value="9">Бич</option>
+                          <option value="10">Тахиа</option>
+                          <option value="11">Нохой</option>
+                          <option value="12">Гахай</option>
+                        </select>
+                      </div>
+                    </div><!-- col-4 -->
+                    <div class="col-md-3 mg-t--1 mg-md-t-0">
+                      <div class="form-group mg-md-l--1">
+                        <label class="form-control-label">Хүйс : <span class="tx-danger">*</span></label>
+                        <select class="form-control select2" [(ngModel)]="gender" type="text" name="years_ref"
+                          placeholder="Хүйсээ сонгоно уу...">
+                          <option value="1">Эрэгтэй</option>
+                          <option value="2">Эмэгтэй</option>
+                        </select>
+                      </div>
+                    </div><!-- col-4 -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                          <button class="btn btn-danger btn-with-icon btn-block mg-t-10" (click)="addYears()">
+                            <div class="ht-40">
+                              <span class="icon wd-40"><i class="fa fa-plus-square"></i></span>
+                              <span class="pd-x-15">Нэмэх</span>
+                            </div>
+                          </button>
+                      </div>
+
+                    </div>
+                  </div><!-- row -->
+                </div>
+
+
+
               </div>
             </div><!-- collapse -->
           </div><!-- card -->
@@ -253,7 +316,7 @@
         </div>
       </div>
 
-      <div class="col-lg-6" id="receipt">
+      <div class="col-lg-6 col-sm-12" id="receipt">
         <h4 class="tx-inverse tx-uppercase tx-center tx-bold tx-20 mg-t-5 mg-b-5">Пунцоглин хийд</h4>
         <p class="br-section-text mg-t-5 mg-b-5">Хэнээс : {{ receipt.from }} </p>
         <p class="br-section-text mg-t-5 mg-b-5">Хэнд : {{ receipt.toWhom }} </p>
@@ -271,20 +334,21 @@
               <td class="pd-t-1"> {{ i + 1 }} .</td>
               <td class="pd-t-1"> {{ book?.name }}</td>
               <td class="pd-t-1"> {{ book?.price }} ₮</td>
-              <td class="pd-t-1"> 
-                <a href="javascript:void(0);" (click)="removeFromReceipt(book)" class="btn btn-danger btn-icon rounded-circle mg-r-5 mg-b-10">
+              <td class="pd-t-1">
+                <a href="javascript:void(0);" (click)="removeFromReceipt(book)"
+                  class="btn btn-danger btn-icon rounded-circle mg-r-5 mg-b-10 no-print">
                   <div><i class="fas fa-trash"></i></div>
                 </a>
               </td>
             </tr>
-            
+
 
           </tbody>
           <tfoot>
-              <tr>
-                  <td class="pd-t-1" colspan="2">Нийт : </td>
-                  <td class="pd-t-1 tx-bold" colspan="2">{{totalPrice}} ₮</td>
-              </tr>
+            <tr>
+              <td class="pd-t-1" colspan="2">Нийт : </td>
+              <td class="pd-t-1 tx-bold" colspan="2">{{totalPrice}} ₮</td>
+            </tr>
             <tr class="tx-center">
               <td colspan="4"><b class="tx-inverse tx-light  ">Хэвлэсэн бичээч : {{ currentUser.username }} </b></td>
             </tr>
@@ -307,6 +371,7 @@
 
 
 
- <a href="javascript:void(0)" class="btn btn-primary btn-icon rounded-circle pd-y-15 pd-x-15" id="floating-icon-button" (click)="print()">
-    <div><i class="fas fa-print fa-2x"></i></div>
-  </a>
+<a href="javascript:void(0)" class="btn btn-primary btn-icon rounded-circle pd-y-15 pd-x-15 no-print" id="floating-icon-button"
+  (click)="print()">
+  <div><i class="fas fa-print fa-2x"></i></div>
+</a>

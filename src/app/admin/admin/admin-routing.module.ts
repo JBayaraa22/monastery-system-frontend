@@ -12,6 +12,7 @@ const routes: Routes = [
     path : "admin",
     component : AdminComponent,
     canActivate : [AuthGuard],
+    data : {role : "admin"},
     children : [
       { path : "" , pathMatch : "full" , redirectTo : "home" }, 
       { path: 'home', component: HomeComponent },
